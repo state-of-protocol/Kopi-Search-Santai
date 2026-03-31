@@ -23,6 +23,7 @@
             <p class="subtitle">Sovereign digital architecture for high-velocity identity verification.</p>
         </header>
 
+        <!-- Bahagian Carian Utama -->
         <section class="search-area">
             <div class="search-box">
                 <span class="prefix">></span>
@@ -31,6 +32,27 @@
             </div>
         </section>
 
+        <!-- Bahagian City Protocol (Weather & Time) -->
+        <section class="city-protocol">
+            <div class="search-box">
+                <span class="prefix">LOC ></span>
+                <input type="text" id="cityInput" placeholder="TYPE CITY NAME (e.g. Banting)..." onkeypress="handleCityKey(event)">
+                <button onclick="getWeather()">FETCH</button>
+            </div>
+            
+            <div id="weatherDisplay" class="weather-card" style="display: none;">
+                <div class="w-left">
+                    <div id="cityName" class="w-city">CITY</div>
+                    <div id="localTime" class="w-time">00:00 AM</div>
+                </div>
+                <div class="w-right">
+                    <div id="temp" class="w-temp">--°C</div>
+                    <div id="wDesc" class="w-desc">FETCHING...</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bahagian Keputusan (Results) -->
         <div id="results" class="results-grid">
             <div class="card card-main">
                 <span class="card-label">IDENTITY_REPORT</span>
