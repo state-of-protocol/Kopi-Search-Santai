@@ -1,0 +1,56 @@
+[
+    {
+        "id": "idx_1774931931_851",
+        "title": "MYGOVERNMENT - PORTAL RASMI KERAJAAN MALAYSIA",
+        "url": "https://www.malaysia.gov.my",
+        "desc": "Gerbang Perkhidmatan Dalam Talian Kerajaan Malaysia untuk Warganegara",
+        "lang": "BM",
+        "timestamp": "31-03-2026 | 12:38 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    },
+    {
+        "id": "idx_1774931937_723",
+        "title": "PEJABAT PERDANA MENTERI",
+        "url": "https://www.pmo.gov.my",
+        "desc": "Laman Web Rasmi",
+        "lang": "BM",
+        "timestamp": "31-03-2026 | 12:38 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    },
+    {
+        "id": "idx_1774931943_704",
+        "title": "BBC NEWS - BREAKING NEWS, VIDEO AND THE LATEST TOP STORIES FROM THE U.S. AND AROUND THE WORLD",
+        "url": "https://www.bbc.com/news",
+        "desc": "Visit BBC News for the latest news, breaking news, video, audio and analysis. BBC News provides trusted World, U.S. and U.K. news as well as local and regional ...",
+        "lang": "EN",
+        "timestamp": "31-03-2026 | 12:39 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    },
+    {
+        "id": "idx_1774931949_999",
+        "title": "THE VERGE",
+        "url": "https://www.theverge.com",
+        "desc": "The Verge is about technology and how it makes us feel. Founded in 2011, we offer our audience everything from breaking news to reviews to award-winning feature...",
+        "lang": "EN",
+        "timestamp": "31-03-2026 | 12:39 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    },
+    {
+        "id": "idx_1774931954_856",
+        "title": "الجزيرة نت: آخر أخبار اليوم حول العالم",
+        "url": "https://www.aljazeera.net",
+        "desc": "الأخبار والتحليلات من الشرق الأوسط والعالم ، الوسائط المتعددة والتفاعلات ، الآراء ، الأفلام الوثائقية ، البودكاست ، القراءات الطويلة وجدول البث",
+        "lang": "AR",
+        "timestamp": "31-03-2026 | 12:39 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    },
+    {
+        "id": "idx_1774931967_737",
+        "title": "SOYACINCAU",
+        "url": "https://www.soyacincau.com",
+        "desc": "Inquisitive, curious and informed",
+        "lang": "BM",
+        "timestamp": "31-03-2026 | 12:39 PM",
+        "engine": "KOSES_ARCHIVER_v3.1"
+    }
+]
