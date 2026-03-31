@@ -1,3 +1,4 @@
+/* 1. ROOT VARIABLES */
 :root {
     --bg: #0a0a0a;
     --card: #111;
@@ -18,6 +19,7 @@
     --glow: rgba(140, 106, 74, 0.1);
 }
 
+/* 2. BASE RESET */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
@@ -26,35 +28,55 @@ body {
     font-family: ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     line-height: 1.6;
+    overflow-x: hidden;
 }
 
 .container { max-width: 900px; margin: 0 auto; padding: 0 40px; }
 
-/* Navbar */
+/* 3. NAVIGATION */
 .navbar { padding: 30px 40px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); }
 .brand { display: flex; align-items: center; gap: 12px; font-weight: bold; font-size: 11px; letter-spacing: 2px; }
 .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
 .status { font-size: 9px; color: var(--accent); letter-spacing: 1px; }
 
-/* Hero */
+/* 4. HERO SECTION */
 .hero { padding: 100px 0 60px; text-align: center; }
 .label { font-size: 9px; color: var(--accent); letter-spacing: 5px; margin-bottom: 15px; }
 .hero h1 { font-size: 5rem; font-weight: 900; letter-spacing: -4px; color: var(--text); }
 .glow-text { color: var(--accent); text-shadow: 0 0 30px var(--glow); }
 .subtitle { font-size: 13px; color: var(--dim); max-width: 450px; margin: 20px auto; }
 
-/* Search Box (Expensive Look) */
-.search-area { max-width: 650px; margin: 0 auto; }
+/* 5. SEARCH BOX COMPONENT (Reusable) */
+.search-area, .city-protocol { max-width: 650px; margin: 0 auto; }
 .search-box { 
     display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); 
     padding: 8px 15px; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    margin-bottom: 20px;
 }
-.prefix { color: var(--accent); font-weight: bold; margin-right: 15px; }
+.prefix { color: var(--accent); font-weight: bold; margin-right: 15px; font-size: 12px; }
 input { flex: 1; background: transparent; border: none; padding: 15px 0; color: var(--text); outline: none; font-family: inherit; font-size: 15px; }
 button { background: var(--accent); color: var(--bg); border: none; padding: 10px 25px; font-weight: bold; border-radius: 2px; cursor: pointer; font-size: 11px; transition: 0.3s; }
 button:hover { box-shadow: 0 0 20px var(--glow); transform: translateY(-1px); }
 
-/* Results Grid */
+/* 6. CITY PROTOCOL & WEATHER CARD */
+.city-protocol { margin-top: 40px; margin-bottom: 40px; }
+.weather-card {
+    margin-top: 20px;
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    animation: fadeIn 0.5s ease;
+}
+.w-city { font-size: 10px; color: var(--accent); letter-spacing: 3px; font-weight: bold; }
+.w-time { font-size: 28px; font-weight: 900; color: var(--text); margin-top: 5px; }
+.w-temp { font-size: 28px; font-weight: bold; color: var(--text); text-align: right; }
+.w-desc { font-size: 9px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; text-align: right; }
+
+/* 7. RESULTS GRID */
 .results-grid { display: none; margin-top: 60px; animation: fadeIn 0.8s ease; }
 .card { background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 4px; margin-bottom: 20px; }
 .card-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -62,23 +84,31 @@ button:hover { box-shadow: 0 0 20px var(--glow); transform: translateY(-1px); }
 .val { font-size: 32px; font-weight: bold; color: var(--text); }
 .unit { font-size: 14px; color: var(--dim); margin-left: 5px; }
 
-/* Progress Bar */
+/* 8. PROGRESS BAR */
 .bar-bg { width: 100%; height: 3px; background: rgba(255,255,255,0.05); margin-top: 15px; }
 .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 1.5s ease; }
 
-/* Theme Button Floating */
+/* 9. THEME TOGGLE */
 .theme-btn {
     position: fixed; bottom: 30px; right: 30px; width: 45px; height: 45px;
     border-radius: 50%; background: var(--card); border: 1px solid var(--border);
     color: var(--accent); cursor: pointer; font-size: 18px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.3), 0 0 15px var(--glow);
     transition: 0.3s ease;
+    z-index: 1000;
 }
 .theme-btn:hover { transform: rotate(15deg) scale(1.1); }
 
-@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+/* 10. ANIMATIONS */
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
 
+/* 11. MOBILE RESPONSIVE */
 @media (max-width: 600px) {
+    .container { padding: 0 20px; }
     .card-group { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 3.5rem; }
+    .hero h1 { font-size: 3rem; }
+    .w-time, .w-temp { font-size: 22px; }
 }
