@@ -3,99 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KOPI-SEARCH-SANTAI // SOVEREIGN_ENGINE</title>
-
-    <link rel="icon" type="image/png" href="https://img.icons8.com/ios-filled/50/d4a373/coffee-beans.png">
-    
+    <title>KOPI-SEARCH // LEAN</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="nav-brand">
-            <div class="dot"></div>
-            <span>KOPI-SEARCH <span class="dim">/ SANTAY</span></span>
+    <nav class="nb">
+        <div class="br">
+            <div class="dt"></div>
+            <span>KOPI_SEARCH <span class="dm">/ LITE</span></span>
         </div>
-        <div class="status-up">
-            NODE: BNT_ACTIVE // BREW: OPTIMAL // 85°C
-        </div>
+        <div class="st" id="st">85°C // OPTIMAL</div>
     </nav>
 
-    <main class="container">
-        
-        <header class="hero">
-            <div class="init-label">[ INITIATING_BREW_SEQUENCE ]</div>
-            <h1>KOPI-SEARCH<span class="accent-dot">.</span></h1>
-            <p class="subtitle">
-                Carian digital berkafein tinggi. Standardisasi maklumat tanpa tekanan 
-                menggunakan protokol Neural Genesis v1.1.6.
-            </p>
-        </header>
-
-        <section class="search-section">
-            <div class="search-box">
-                <div class="input-wrapper">
-                    <span class="search-icon">☕</span>
-                    <input type="text" id="searchInput" placeholder="APA YANG ANDA MAHU CARI?" onkeypress="handleKey(event)" autocomplete="off">
-                </div>
-                <button onclick="executeSearch()" id="searchBtn">BREW CARIAN</button>
-            </div>
-            <p class="search-hint">
-                Format Didukung: domain.com, ASSET-ID, atau Kata Kunci Santai
-            </p>
-        </section>
-
-        <div id="results" class="results-grid">
-            <div class="card" id="statusCard">
-                <span class="label">[ SEARCH_REPORT ]</span>
-                <div id="resultOutput">Sila masukkan input untuk memulakan proses ekstraksi data...</div>
-            </div>
-
-            <div class="card">
-                <span class="label">Kafein Velocity</span>
-                <div class="val"><span id="velocityVal">0</span><span class="unit">%</span></div>
-                <div class="progress-bg">
-                    <div id="progressBar" class="progress-fill"></div>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="label">Data Extraction</span>
-                <div class="val"><span id="volumeVal">0.0</span><span class="unit">MG</span></div>
-                <p class="dim-text">Ketumpatan maklumat dikesan dalam rangkaian.</p>
-            </div>
+    <main class="ct">
+        <div class="hr">
+            <h1>KOPI<span class="ac">.</span></h1>
+            <p>Sovereign Search Node.</p>
         </div>
 
+        <div class="sb">
+            <input type="text" id="si" placeholder="CARI..." onkeypress="hK(event)" autocomplete="off">
+            <button onclick="exS()" id="sb">GO</button>
+        </div>
+
+        <div id="rs" class="rs">
+            <div class="cd">
+                <span class="lb">[ STATUS ]</span>
+                <div id="out">Sedia untuk ekstraksi...</div>
+            </div>
+        </div>
     </main>
 
-    <button id="themeToggle" class="theme-toggle-float" onclick="toggleTheme()" title="Tukar Tema">
-        <span id="themeIcon">☕</span>
-    </button>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="nav-brand">
-                        <div class="dot"></div>
-                        <span>STATE OF PROTOCOL</span>
-                    </div>
-                    <p class="footer-desc">
-                        Kopi-Search-Santai adalah sebahagian daripada ekosistem S.O.P Foundation 
-                        untuk pemprosesan data berdaulat.
-                    </p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <div class="sync-status">
-                    SYNC STATUS: <span id="sync-time">ACTIVE_NODE</span>
-                </div>
-                <div class="copyright">
-                    &copy; 2026 KOPI-SEARCH-SANTAI REPOSITORY. ALL RIGHTS RESERVED.
-                </div>
-            </div>
-        </div>
-    </footer>
+    <!-- Floating Theme Toggle -->
+    <button class="tg" onclick="tT()" title="Theme">☕</button>
 
     <script src="script.js"></script>
 </body>
