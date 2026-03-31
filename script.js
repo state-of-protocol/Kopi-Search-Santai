@@ -1,10 +1,4 @@
 /** 
- * KONFIGURASI SISTEM
- * Masukkan kunci anda di sini.
- */
-const GEMINI_API_KEY = "API.KEY"; // Gunakan Key anda yang sah
-
-/** 
  * PROTOKOL TEMA (THEME LOGIC) 
  */
 function toggleTheme() {
@@ -19,7 +13,7 @@ if (localStorage.getItem('k-theme') === 'light') {
 }
 
 /** 
- * PROTOKOL CARIAN AI (POWERED BY GEMINI) 
+ * PROTOKOL CARIAN AI (SERVERLESS MODE) 
  */
 function handleKey(e) { if (e.key === 'Enter') runSearch(); }
 
@@ -37,18 +31,12 @@ async function runSearch() {
     out.innerHTML = `<div style="color:var(--accent); font-size:11px; letter-spacing:1px;">> INITIATING_CRAWL: ${input.toUpperCase()}...</div>`;
 
     try {
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                contents: [{
-                    parts: [{ text: `Berikan maklumat ringkas, tepat, dan terkini tentang: ${input}. Gunakan nada profesional, teknikal, dan gaya cyberpunk.` }]
-                }]
-            })
-        });
-
+        // Panggil Serverless Function anda sendiri (api/search.js)
+        const response = await fetch(`/api/search?query=${encodeURIComponent(input)}`);
         const data = await response.json();
-        if (data.error) throw new Error(data.error.message);
+        
+        if (data.error) throw new Error(data.error);
+
         const aiResponse = data.candidates[0].content.parts[0].text;
 
         setTimeout(() => {
@@ -62,21 +50,22 @@ async function runSearch() {
                 <div style="font-size:16px; color:var(--accent); margin-bottom:12px; font-weight:bold;">> ACCESS_GRANTED: SEARCH_RESULT</div>
                 <div style="font-size:13px; color:var(--text); line-height:1.7; white-space: pre-wrap; font-family:inherit;">${aiResponse}</div>
                 <div style="margin-top:20px; font-size:9px; color:var(--dim); border-top:1px dotted var(--border); padding-top:10px;">
-                    SOURCE: GOOGLE_NEURAL_ENGINE // STATUS: VERIFIED_BY_KOPI_SOP
+                    SOURCE: VERCEL_EDGE_NODE // STATUS: SECURE_LINK_ESTABLISHED
                 </div>
             `;
             window.scrollTo({ top: results.offsetTop - 50, behavior: 'smooth' });
         }, 800);
+
     } catch (error) {
+        console.error("Node Error:", error);
         btn.innerText = "RETRY";
         btn.disabled = false;
-        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> ERROR: NODE_UNREACHABLE. Check API Key.</div>`;
+        out.innerHTML = `<div style="color:#ff5555; font-size:11px;">> ERROR: SECURE_CONNECTION_FAILED. Sila semak konfigurasi Vercel anda.</div>`;
     }
 }
 
 /** 
- * PROTOKOL CARIAN LOKASI GLOBAL (AUTOREVEAL)
- * Mengimbas fail JSON benua secara serentak (Bulletproof Logic).
+ * PROTOKOL CARIAN LOKASI GLOBAL 
  */
 async function searchLocation() {
     const input = document.getElementById('cityInput').value.trim().toUpperCase();
@@ -88,7 +77,6 @@ async function searchLocation() {
     }
 
     try {
-        // Scan semua fail benua serentak
         const continentFiles = ['./data/asia.json', './data/europe.json', './data/america.json'];
         const responses = await Promise.all(
             continentFiles.map(file => fetch(file).then(res => res.ok ? res.json() : []))
@@ -188,11 +176,9 @@ setInterval(() => {
     if (statusEl) statusEl.innerText = `SYNC_ACTIVE // ${t} // 85°C`;
 }, 1000);
 
-// Tutup suggestion bila klik luar
 document.addEventListener('click', (e) => {
     const sug = document.getElementById('citySuggestions');
     if (sug && !e.target.closest('.city-protocol')) sug.style.display = 'none';
 });
 
-// Pasangkan fungsi ke input bandar secara dinamik
 document.getElementById('cityInput').addEventListener('input', searchLocation);
