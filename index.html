@@ -7,7 +7,57 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;700;800&display=swap" rel="stylesheet">
     <style>
-        /* CSS tambahan ringkas untuk memastikan layout Suggestions & Grid kemas */
+        /* CSS INLINE UNTUK LOGIK ENGINE & SUGGESTIONS */
+        .engine-selector {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            animation: fadeIn 0.8s ease;
+        }
+
+        .engine-track {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 5px;
+            border-radius: 50px;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 5px;
+            backdrop-filter: blur(10px);
+        }
+
+        .eng-btn {
+            background: transparent;
+            border: none;
+            color: var(--dim);
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 10px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.4s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* GLOW NEON MINT (AI) */
+        .eng-btn.active#aiMode {
+            color: #00ff99;
+            background: rgba(0, 255, 153, 0.1);
+            box-shadow: 0 0 15px rgba(0, 255, 153, 0.2);
+            text-shadow: 0 0 8px #00ff99;
+        }
+
+        /* GLOW CYBER BLUE (WEB) */
+        .eng-btn.active#webMode {
+            color: #00ccff;
+            background: rgba(0, 204, 255, 0.1);
+            box-shadow: 0 0 15px rgba(0, 204, 255, 0.2);
+            text-shadow: 0 0 8px #00ccff;
+        }
+
         .suggestions-box {
             position: absolute;
             top: 100%;
@@ -22,6 +72,7 @@
             backdrop-filter: blur(15px);
             border-radius: 0 0 4px 4px;
         }
+
         .suggestion-item {
             padding: 12px 15px;
             cursor: pointer;
@@ -31,16 +82,22 @@
             font-size: 11px;
             transition: 0.2s;
         }
+
         .suggestion-item:hover {
             background: var(--glow);
             color: var(--accent);
         }
+
         #results-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
             margin-top: 25px;
         }
+
+        /* DYNAMIC SEARCH BOX GLOW */
+        .search-box.ai-active { border-color: #00ff99 !important; box-shadow: 0 0 20px rgba(0, 255, 153, 0.15); }
+        .search-box.web-active { border-color: #00ccff !important; box-shadow: 0 0 20px rgba(0, 204, 255, 0.15); }
     </style>
 </head>
 <body>
@@ -56,24 +113,38 @@
     <main class="container">
         
         <header class="hero">
-            <div class="label">[ NEURAL_GENESIS_V2 ]</div>
+            <div class="label">[ NEURAL_GENESIS_V3 ]</div>
             <h1>KOPI<span class="glow-text">.</span></h1>
-            <p class="subtitle">Sovereign digital architecture for high-velocity identity verification and global data retrieval.</p>
+            <p class="subtitle">Sovereign digital architecture with Hybrid Neural AI and Web Spider Indexing.</p>
         </header>
 
+        <!-- ENGINE SELECTOR -->
+        <div class="engine-selector">
+            <div class="engine-track">
+                <button class="eng-btn active" id="aiMode" onclick="setEngine('AI')">
+                    <span>🧠</span> NEURAL_AI
+                </button>
+                <button class="eng-btn" id="webMode" onclick="setEngine('WEB')">
+                    <span>🌐</span> THE_BIG_FOUR
+                </button>
+            </div>
+        </div>
+
+        <!-- SEARCH AREA -->
         <section class="search-area">
-            <div class="search-box">
-                <span class="prefix">></span>
-                <input type="text" id="searchInput" placeholder="ENTER ASSET ID OR KEYWORD..." onkeypress="handleKey(event)" autocomplete="off">
+            <div class="search-box ai-active" id="mainSearchBox">
+                <span class="prefix" id="enginePrefix">AI ></span>
+                <input type="text" id="searchInput" placeholder="ASK NEURAL AI ANYTHING..." onkeypress="handleKey(event)" autocomplete="off">
                 <button onclick="runSearch()" id="searchBtn">EXECUTE</button>
             </div>
         </section>
 
+        <!-- CITY PROTOCOL -->
         <section class="city-protocol">
             <div class="search-box">
                 <span class="prefix">LOC ></span>
                 <div style="flex:1; position:relative;">
-                    <input type="text" id="cityInput" placeholder="TYPE CITY NAME (e.g. Banting)..." onkeypress="handleCityKey(event)" autocomplete="off">
+                    <input type="text" id="cityInput" placeholder="TYPE CITY NAME..." onkeypress="handleCityKey(event)" autocomplete="off">
                     <div id="citySuggestions" class="suggestions-box" style="display: none;"></div>
                 </div>
                 <button onclick="getWeather()">FETCH</button>
@@ -91,12 +162,13 @@
             </div>
         </section>
 
+        <!-- RESULTS SECTION -->
         <div id="results" style="display: none; margin-top: 60px;">
             
             <div class="card audit-card" style="margin-bottom: 25px;">
-                <span class="card-label">NEURAL_AUDIT_REPORT</span>
+                <span class="card-label" id="auditLabel">NEURAL_AUDIT_REPORT</span>
                 <div id="output" class="output-text" style="font-size: 13px; line-height: 1.8;">
-                    Awaiting neural audit sequence...
+                    Awaiting audit sequence...
                 </div>
                 
                 <div class="card-group" style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 20px;">
@@ -113,11 +185,13 @@
                 </div>
             </div>
 
+            <!-- DYNAMIC GRID FOR STEM CARDS -->
             <div id="results-grid"></div>
 
         </div>
     </main>
 
+    <!-- THEME TOGGLE -->
     <button class="theme-btn" onclick="toggleTheme()" title="Switch Visual Protocol">☕</button>
 
     <script src="script.js"></script>
