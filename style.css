@@ -1,22 +1,22 @@
 /* 1. ROOT VARIABLES */
 :root {
     --bg: #0a0a0a;
-    --card: #111;
-    --accent: #d4a373;
+    --card: rgba(17, 17, 17, 0.8); /* Glassmorphism ready */
+    --accent: #00ff99; /* Ditukar ke hijau cyberpunk untuk vibe digital */
     --text: #eee;
     --dim: #555;
-    --border: rgba(212, 163, 115, 0.1);
-    --glow: rgba(212, 163, 115, 0.2);
+    --border: rgba(0, 255, 153, 0.15);
+    --glow: rgba(0, 255, 153, 0.2);
 }
 
 [data-theme="light"] {
     --bg: #f8f5f2;
-    --card: #ffffff;
-    --accent: #8c6a4a;
+    --card: rgba(255, 255, 255, 0.9);
+    --accent: #008c5e;
     --text: #1a1a1a;
     --dim: #a0a0a0;
-    --border: rgba(140, 106, 74, 0.1);
-    --glow: rgba(140, 106, 74, 0.1);
+    --border: rgba(0, 140, 94, 0.1);
+    --glow: rgba(0, 140, 94, 0.1);
 }
 
 /* 2. BASE RESET */
@@ -46,12 +46,13 @@ body {
 .glow-text { color: var(--accent); text-shadow: 0 0 30px var(--glow); }
 .subtitle { font-size: 13px; color: var(--dim); max-width: 450px; margin: 20px auto; }
 
-/* 5. SEARCH BOX COMPONENT (Reusable) */
+/* 5. SEARCH BOX COMPONENT */
 .search-area, .city-protocol { max-width: 650px; margin: 0 auto; }
 .search-box { 
     display: flex; align-items: center; background: var(--card); border: 1px solid var(--border); 
     padding: 8px 15px; border-radius: 4px; box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     margin-bottom: 20px;
+    backdrop-filter: blur(10px);
 }
 .prefix { color: var(--accent); font-weight: bold; margin-right: 15px; font-size: 12px; }
 input { flex: 1; background: transparent; border: none; padding: 15px 0; color: var(--text); outline: none; font-family: inherit; font-size: 15px; }
@@ -70,21 +71,71 @@ button:hover { box-shadow: 0 0 20px var(--glow); transform: translateY(-1px); }
     align-items: center;
     box-shadow: 0 15px 30px rgba(0,0,0,0.2);
     animation: fadeIn 0.5s ease;
+    backdrop-filter: blur(10px);
 }
-.w-city { font-size: 10px; color: var(--accent); letter-spacing: 3px; font-weight: bold; }
-.w-time { font-size: 28px; font-weight: 900; color: var(--text); margin-top: 5px; }
-.w-temp { font-size: 28px; font-weight: bold; color: var(--text); text-align: right; }
-.w-desc { font-size: 9px; color: var(--dim); letter-spacing: 2px; text-transform: uppercase; text-align: right; }
 
-/* 7. RESULTS GRID */
+/* 7. NEW: RESULTS GRID (STEM DIGITAL GAYA) */
+#results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    margin-top: 40px;
+    display: none; /* Akan ditukar ke 'grid' via JS */
+}
+
+/* Blok "Stem Digital" */
+.stem-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: 2px 15px 2px 15px; /* Border-radius unik */
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    backdrop-filter: blur(5px);
+}
+
+/* Hover Effect: Data Berdenyut (Pulse) */
+.stem-card:hover {
+    background: rgba(0, 255, 153, 0.08);
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--accent);
+    box-shadow: 0 0 25px var(--glow);
+    animation: pulseGlow 1.5s infinite;
+}
+
+.stem-url {
+    font-size: 9px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.8;
+}
+
+.stem-title {
+    font-size: 15px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--text);
+}
+
+.stem-desc {
+    font-size: 11px;
+    color: var(--dim);
+    line-height: 1.5;
+}
+
+/* 8. PROGRESS BAR & AUDIT UI */
 .results-grid { display: none; margin-top: 60px; animation: fadeIn 0.8s ease; }
-.card { background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 4px; margin-bottom: 20px; }
+.audit-card { background: var(--card); border: 1px solid var(--border); padding: 30px; border-radius: 4px; margin-bottom: 20px; }
 .card-group { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .card-label { font-size: 9px; color: var(--accent); display: block; margin-bottom: 20px; letter-spacing: 2px; }
 .val { font-size: 32px; font-weight: bold; color: var(--text); }
 .unit { font-size: 14px; color: var(--dim); margin-left: 5px; }
 
-/* 8. PROGRESS BAR */
 .bar-bg { width: 100%; height: 3px; background: rgba(255,255,255,0.05); margin-top: 15px; }
 .bar-fill { height: 100%; background: var(--accent); width: 0%; transition: 1.5s ease; }
 
@@ -97,12 +148,17 @@ button:hover { box-shadow: 0 0 20px var(--glow); transform: translateY(-1px); }
     transition: 0.3s ease;
     z-index: 1000;
 }
-.theme-btn:hover { transform: rotate(15deg) scale(1.1); }
 
 /* 10. ANIMATIONS */
 @keyframes fadeIn { 
-    from { opacity: 0; transform: translateY(10px); } 
+    from { opacity: 0; transform: translateY(15px); } 
     to { opacity: 1; transform: translateY(0); } 
+}
+
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 10px var(--glow); }
+    50% { box-shadow: 0 0 25px rgba(0, 255, 153, 0.4); }
+    100% { box-shadow: 0 0 10px var(--glow); }
 }
 
 /* 11. MOBILE RESPONSIVE */
@@ -110,5 +166,5 @@ button:hover { box-shadow: 0 0 20px var(--glow); transform: translateY(-1px); }
     .container { padding: 0 20px; }
     .card-group { grid-template-columns: 1fr; }
     .hero h1 { font-size: 3rem; }
-    .w-time, .w-temp { font-size: 22px; }
+    #results-grid { grid-template-columns: 1fr; }
 }
