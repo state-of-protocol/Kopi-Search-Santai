@@ -1,90 +1,48 @@
-/**
- * KOPI-SEARCH-SANTAI CORE ENGINE
- */
-
-// 1. Logik Tema (Dark/Light)
 function toggleTheme() {
-    const body = document.documentElement;
-    const currentTheme = body.getAttribute('data-theme');
-    const themeIcon = document.getElementById('themeIcon');
-
-    if (currentTheme === 'light') {
-        body.removeAttribute('data-theme');
-        localStorage.setItem('kopi-theme', 'dark');
-        themeIcon.innerText = "☕";
-    } else {
-        body.setAttribute('data-theme', 'light');
-        localStorage.setItem('kopi-theme', 'light');
-        themeIcon.innerText = "🍦";
-    }
+    const b = document.documentElement;
+    const isL = b.getAttribute('data-theme') === 'light';
+    b.setAttribute('data-theme', isL ? 'dark' : 'light');
+    localStorage.setItem('k-theme', isL ? 'dark' : 'light');
 }
 
-// Semak tema masa load
-window.addEventListener('DOMContentLoaded', () => {
-    const savedTheme = localStorage.getItem('kopi-theme');
-    if (savedTheme === 'light') {
-        document.documentElement.setAttribute('data-theme', 'light');
-        document.getElementById('themeIcon').innerText = "🍦";
-    }
-});
+if (localStorage.getItem('k-theme') === 'light') document.documentElement.setAttribute('data-theme', 'light');
 
-// 2. Logik Carian
-function handleKey(e) {
-    if (e.key === 'Enter') executeSearch();
-}
+function handleKey(e) { if (e.key === 'Enter') runSearch(); }
 
-function executeSearch() {
+function runSearch() {
     const input = document.getElementById('searchInput').value.trim();
-    const btn = document.getElementById('searchBtn');
     const results = document.getElementById('results');
-    const output = document.getElementById('resultOutput');
+    const out = document.getElementById('output');
+    const btn = document.getElementById('searchBtn');
 
     if (!input) return;
 
-    // UI Feedback
-    btn.innerText = "BREWING...";
+    btn.innerText = "AUDITING...";
     btn.disabled = true;
-    
-    // Reset visual metrics
-    document.getElementById('progressBar').style.width = '0%';
-    document.getElementById('velocityVal').innerText = '0';
 
     setTimeout(() => {
-        results.style.display = 'grid';
-        btn.innerText = "BREW CARIAN";
+        results.style.display = 'block';
+        btn.innerText = "EXECUTE";
         btn.disabled = false;
 
-        // Simulasi Data
-        const randomVelocity = Math.floor(Math.random() * 40 + 60);
-        const randomVolume = (Math.random() * 5 + 0.5).toFixed(2);
+        const v = Math.floor(Math.random() * 30 + 70);
+        document.getElementById('vVal').innerText = v;
+        document.getElementById('bar').style.width = v + '%';
 
-        document.getElementById('velocityVal').innerText = randomVelocity;
-        document.getElementById('progressBar').style.width = randomVelocity + '%';
-        document.getElementById('volumeVal').innerText = randomVolume;
-
-        output.innerHTML = `
-            <h3 style="color:var(--white); margin-bottom:10px;">HASIL: ${input.toUpperCase()}</h3>
-            <p style="font-size:12px; color:var(--text);">Data berjaya diekstrak daripada node <span style="color:var(--accent)">WSE-SOVEREIGN</span>. 
-            Sila semak integriti maklumat di bawah.</p>
-            <div style="margin-top:15px; padding:10px; background:var(--hover-bg); border: 1px dashed var(--accent); font-size:11px;">
-                STATUS: VALID_IDENT_DETECTED // BREW_ID: ${Math.random().toString(36).substr(2, 9).toUpperCase()}
+        out.innerHTML = `
+            <div style="font-size:18px; color:var(--text); margin-bottom:10px;">> ACCESS_GRANTED: ${input.toUpperCase()}</div>
+            <div style="font-size:11px; color:var(--dim); line-height:1.8;">
+                Neural hash verified via Local Node Sync. Asset provenance confirmed 
+                at Epoch 4. Synchronized with S.O.P Foundation standards.
             </div>
         `;
 
-        // Scroll ke results
-        window.scrollTo({
-            top: results.offsetTop - 100,
-            behavior: 'smooth'
-        });
-
-    }, 1200);
+        window.scrollTo({ top: results.offsetTop - 50, behavior: 'smooth' });
+    }, 1000);
 }
 
-// Footer Sync Time Simulation
+// Minimalist HUD Update
 setInterval(() => {
-    const now = new Date();
-    const timeStr = now.getHours().toString().padStart(2, '0') + ":" + 
-                    now.getMinutes().toString().padStart(2, '0') + ":" + 
-                    now.getSeconds().toString().padStart(2, '0');
-    document.getElementById('sync-time').innerText = `LOCAL_NODE_SYNC: ${timeStr}`;
+    const t = new Date().toLocaleTimeString('ms-MY', { hour12: false });
+    document.getElementById('status').innerText = `SYNC_ACTIVE // ${t} // 85°C`;
 }, 1000);
