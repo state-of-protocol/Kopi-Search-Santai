@@ -1,60 +1,38 @@
-:root {
-    --bg: #0f0d0c;
-    --cd: #161211;
-    --ac: #d4a373;
-    --tx: #d6ccc2;
-    --dm: #5c534a;
-    --bd: #2a2420;
+// Theme Logic
+function tT() {
+    const b = document.documentElement;
+    const isL = b.getAttribute('data-theme') === 'light';
+    b.setAttribute('data-theme', isL ? 'dark' : 'light');
+    localStorage.setItem('k-t', isL ? 'dark' : 'light');
 }
 
-[data-theme="light"] {
-    --bg: #f2eee9;
-    --cd: #ffffff;
-    --ac: #8c6a4a;
-    --tx: #2a2420;
-    --dm: #a0958b;
-    --bd: #e0d8cf;
+// Load Saved Theme
+if (localStorage.getItem('k-t') === 'light') document.documentElement.setAttribute('data-theme', 'light');
+
+// Search Logic
+function hK(e) { if (e.key === 'Enter') exS(); }
+
+function exS() {
+    const i = document.getElementById('si').value.trim();
+    const r = document.getElementById('rs');
+    const o = document.getElementById('out');
+    const b = document.getElementById('sb');
+
+    if (!i) return;
+
+    b.innerText = "...";
+    
+    // Simulasi respons pantas
+    setTimeout(() => {
+        r.style.display = 'block';
+        b.innerText = "GO";
+        o.innerHTML = `<strong style="color:var(--ac)">RESULT:</strong> ${i.toUpperCase()}<br>
+                       <small style="color:var(--dm)">Data extracted from local node. Latency: 0.02ms</small>`;
+    }, 300);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    background: var(--bg);
-    color: var(--tx);
-    font-family: system-ui, -apple-system, sans-serif; /* Super laju */
-    font-size: 14px;
-    transition: background 0.2s;
-}
-
-.ct { max-width: 600px; margin: 0 auto; padding: 20px; text-align: center; }
-
-/* Navbar */
-.nb { padding: 15px 20px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--bd); font-size: 10px; font-weight: bold; }
-.dt { width: 6px; height: 6px; background: var(--ac); border-radius: 50%; display: inline-block; margin-right: 5px; }
-.st { color: var(--ac); }
-
-/* Hero */
-.hr { margin: 80px 0 40px; }
-.hr h1 { font-size: 4rem; letter-spacing: -2px; color: var(--tx); }
-.ac { color: var(--ac); }
-.hr p { font-size: 11px; color: var(--dm); letter-spacing: 2px; text-transform: uppercase; }
-
-/* Lean Search Box */
-.sb { display: flex; background: var(--cd); border: 1px solid var(--bd); border-radius: 4px; overflow: hidden; }
-#si { flex: 1; background: transparent; border: none; padding: 15px; color: var(--tx); outline: none; font-size: 16px; }
-#sb { background: var(--ac); color: var(--bg); border: none; padding: 0 25px; font-weight: bold; cursor: pointer; }
-
-/* Results */
-.rs { display: none; margin-top: 40px; text-align: left; }
-.cd { background: var(--cd); border: 1px solid var(--bd); padding: 20px; border-radius: 4px; }
-.lb { font-size: 9px; color: var(--ac); display: block; margin-bottom: 10px; letter-spacing: 1px; }
-
-/* Minimalist Floating Toggle */
-.tg {
-    position: fixed; bottom: 20px; right: 20px; width: 35px; height: 35px;
-    border-radius: 50%; background: var(--cd); border: 1px solid var(--bd);
-    color: var(--ac); cursor: pointer; font-size: 14px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-}
-
-@media (max-width: 480px) { .hr h1 { font-size: 3rem; } }
+// Minimalist status update
+setInterval(() => {
+    const t = new Date().toLocaleTimeString('en-GB', { hour12: false });
+    document.getElementById('st').innerText = `SYNC: ${t} // 85°C`;
+}, 1000);
