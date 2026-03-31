@@ -5,7 +5,6 @@ let currentEngine = 'AI';
 
 /** 
  * 2. PROTOKOL TEMA (THEME LOGIC) 
- * Menyokong Dark Cappuccino dan Light Cream Beige
  */
 function toggleTheme() {
     const b = document.documentElement;
@@ -20,7 +19,6 @@ if (localStorage.getItem('k-theme') === 'light') {
 
 /** 
  * 3. LOGIC ENGINE SWITCH
- * Menukar identiti sistem antara AI (Neon Mint) dan WEB (Cyber Blue)
  */
 function setEngine(mode) {
     currentEngine = mode;
@@ -31,7 +29,6 @@ function setEngine(mode) {
     const input = document.getElementById('searchInput');
     const auditLabel = document.getElementById('auditLabel');
 
-    // Reset State
     aiBtn.classList.remove('active');
     webBtn.classList.remove('active');
     searchBox.classList.remove('ai-active', 'web-active');
@@ -65,7 +62,6 @@ async function runSearch() {
 
     if (!input) return;
 
-    // UI Initializing
     btn.disabled = true;
     btn.innerText = currentEngine === 'AI' ? "LINKING..." : "CRAWLING...";
     results.style.display = 'block';
@@ -79,30 +75,23 @@ async function runSearch() {
 
     try {
         if (currentEngine === 'WEB') {
-            /**
-             * MODE: WEB INDEX (KOSES SPIDER DATA)
-             * Mencari data dari fail JSON hasil crawler Python
-             */
+            // Memanggil data dari arkib JSON yang sentiasa dikemaskini
             const webResults = await fetchWebData(input);
             
             if (webResults.length > 0) {
                 renderGrid(webResults);
-                updateAuditUI("WEB_INDEX_SUCCESS", `${webResults.length} relevant nodes retrieved from archive.`);
+                updateAuditUI("WEB_INDEX_SUCCESS", `${webResults.length} relevant nodes retrieved from latest archive.`);
             } else {
                 throw new Error("NO_MATCHING_DATA_FOUND_IN_ARCHIVE");
             }
-
         } else {
-            /**
-             * MODE: NEURAL AI (Gemini)
-             */
+            // Mode AI Gemini
             const response = await fetch(`/api/search?query=${encodeURIComponent(input)}`);
             const data = await response.json();
             
             if (data.error) throw new Error(data.error);
             const aiResponse = data.candidates[0].content.parts[0].text;
             
-            // Tukar text AI kepada format Stem Card
             const segments = aiResponse.split('\n').filter(t => t.length > 10).map((text, i) => ({
                 title: `NEURAL_FRAGMENT_0${i+1}`,
                 desc: text,
@@ -123,27 +112,20 @@ async function runSearch() {
 }
 
 /**
- * 4.1 WEB ARCHIVE FETCH LOGIC
- * Fungsi untuk akses data fizikal daripada spider
+ * 4.1 WEB ARCHIVE FETCH (AUTO-LATEST VERSION)
+ * Kini menggunakan path statik supaya Python boleh push tanpa menukar kod JS.
  */
 async function fetchWebData(keyword) {
     try {
-        const now = new Date();
-        const dd = String(now.getDate()).padStart(2, '0');
-        const mm = String(now.getMonth() + 1).padStart(2, '0');
-        const yyyy = now.getFullYear();
-        const dateFolder = `${dd}_${mm}_${yyyy}`;
-
-        // PENTING: Nama fail JSON mesti sepadan dengan output Python anda
-        // Anda boleh tukar 'web_index_multilang_12.38_PM.json' kepada nama fail terbaru anda
-        const targetPath = `./data/${dateFolder}/web_index_multilang_12.38_PM.json`;
+        // Path statik: Pastikan Python Spider anda simpan fail dengan nama ini
+        const targetPath = `./data/web_index_latest.json`;
         
         const response = await fetch(targetPath);
         if (!response.ok) throw new Error("ARCHIVE_NODE_OFFLINE");
         
         const allData = await response.json();
         
-        // Tapis data berdasarkan input user
+        // Tapis data
         const filtered = allData.filter(item => 
             item.title.toLowerCase().includes(keyword.toLowerCase()) || 
             item.desc.toLowerCase().includes(keyword.toLowerCase())
@@ -162,7 +144,7 @@ async function fetchWebData(keyword) {
     }
 }
 
-// Helper: Kemaskini Progress Bar & Text Audit
+// Helper: UI Updates
 function updateAuditUI(status, subtext) {
     const v = Math.floor(Math.random() * 15 + 85);
     const vVal = document.getElementById('vVal');
@@ -178,7 +160,7 @@ function updateAuditUI(status, subtext) {
     `;
 }
 
-// Helper: Render Stem Cards ke dalam Grid (Dengan Badge Bahasa & Link)
+// Helper: Render Grid
 function renderGrid(items) {
     const grid = document.getElementById('results-grid');
     if (!grid) return;
@@ -265,11 +247,9 @@ setInterval(() => {
     if (el) el.innerText = `SYNC_ACTIVE // ${t} // 85°C`;
 }, 1000);
 
-// Event Listeners
+// Init Listeners
 const cityInput = document.getElementById('cityInput');
-if(cityInput) {
-    cityInput.addEventListener('input', searchLocation);
-}
+if(cityInput) cityInput.addEventListener('input', searchLocation);
 
 document.addEventListener('click', (e) => {
     const sug = document.getElementById('citySuggestions');
