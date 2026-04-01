@@ -1,0 +1,41 @@
+/* 1. ROOT VARIABLES & ENGINE GLOW */
+:root {
+    --bg: #1a1412; 
+    --card: rgba(38, 30, 28, 0.85);
+    --accent: #d4a373; /* Coffee Gold */
+    --text: #f5ebe0;
+    --dim: #8d7773;
+    --border: rgba(212, 163, 115, 0.2);
+    --glow: rgba(212, 163, 115, 0.2);
+    --ai-glow: #00ff99;
+    --web-glow: #00ccff;
+}
+
+[data-theme="light"] {
+    --bg: #f5f2ed;
+    --card: rgba(255, 255, 255, 0.9);
+    --accent: #8c6a4a;
+    --text: #3d3028;
+    --dim: #a69083;
+    --border: rgba(140, 106, 74, 0.15);
+    --glow: rgba(140, 106, 74, 0.1);
+}
+
+/* 2. BASE RESET */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 40px; }
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
