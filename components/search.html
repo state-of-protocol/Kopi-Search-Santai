@@ -1,0 +1,13 @@
+<div class="engine-selector">
+    <div class="engine-track">
+        <button class="eng-btn active" id="aiMode" onclick="setEngine('AI')"><span>🧠</span> NEURAL_AI</button>
+        <button class="eng-btn" id="webMode" onclick="setEngine('WEB')"><span>🌐</span> WEB_SPIDER</button>
+    </div>
+</div>
+<section class="search-area">
+    <div class="search-box ai-active" id="mainSearchBox">
+        <span class="prefix" id="enginePrefix">AI ></span>
+        <input type="text" id="searchInput" placeholder="ASK ANYTHING..." onkeypress="handleKey(event)">
+        <button onclick="runSearch()">EXECUTE</button>
+    </div>
+</section>
