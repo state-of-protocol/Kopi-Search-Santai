@@ -1,0 +1,21 @@
+<section class="city-protocol">
+    <div class="search-box">
+        <span class="prefix">LOC ></span>
+        <div style="flex:1; position:relative;">
+            <input type="text" id="cityInput" placeholder="TYPE CITY NAME..." onkeypress="handleCityKey(event)" autocomplete="off">
+            <div id="citySuggestions" class="suggestions-box" style="display: none;"></div>
+        </div>
+        <button onclick="getWeather()">FETCH</button>
+    </div>
+    
+    <div id="weatherDisplay" class="weather-card" style="display: none;">
+        <div class="w-left">
+            <div id="cityName" class="w-city">CITY_NODE</div>
+            <div id="localTime" class="w-time">00:00:00</div>
+        </div>
+        <div class="w-right">
+            <div id="temp" class="w-temp">--°C</div>
+            <div id="wDesc" class="w-desc">SCANNING_ATMOSPHERE...</div>
+        </div>
+    </div>
+</section>
