@@ -1,0 +1,7 @@
+/* RESPONSIVE PROTOCOL */
+@media (max-width: 768px) {
+    .hero h1 { font-size: 3.5rem; }
+    .container { padding: 0 20px; }
+    #results-grid { grid-template-columns: 1fr; }
+    .navbar { padding: 20px; }
+}
